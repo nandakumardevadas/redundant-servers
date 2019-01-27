@@ -59,7 +59,7 @@ app.get("/", function(req, res) {
 var server = http.createServer(app);
 
 server.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+  console.log(`Listening on port ${port}. Please visit the link http://localhost:${port}`);
 
   // To check the server status health based on the retry limit based on the config file
   setInterval(async () => {
