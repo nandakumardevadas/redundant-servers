@@ -28,4 +28,7 @@ const serverConfig = {
 }
 
 ```
-
+# Default URL's generated on starting the servers:
+    1. [http://localhost:4700]: http://localhost:4700
+    2. [http://localhost:8001]: http://localhost:8001
+    2. [http://localhost:8002]: http://localhost:8002
