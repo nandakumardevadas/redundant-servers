@@ -5,12 +5,15 @@ const isReachable = require("is-reachable");
 const path = require("path");
 const express = require("express");
 
+// Server configuration settings
 const serverConfig = require("./config");
 
 var app = express();
 
 const port = 4700;
+// Servers list with the settings based on the config file
 let serversList = serverConfig.serversList;
+// Retry limit to check the server status
 let retryLimit = serverConfig.retryLimit;
 
 let proxyObj = {};
@@ -21,7 +24,10 @@ serversList.map(value => {
   return proxyObj[value.target];
 });
 
-var selectServer = (req, res) => {
+/**
+ * To Switch between the servers based on connections set in config file
+ */
+function selectServer(req, res) {
   let activeServers = _.filter(serversList, { down: false });
   let targetServer = null;
   if (activeServers.length > 0) {
@@ -31,13 +37,18 @@ var selectServer = (req, res) => {
   return targetServer;
 };
 
-var serverCallback = (req, res) => {
+/**
+ * To setup and redirect to the particular server with the server status
+ */
+function serverCallback(req, res) {
   var proxy = selectServer();
   if (!proxy) {
     return res.sendFile(__dirname + "/index.html");
   }
   proxy.web(req, res);
-  proxy.on("error", error => { console.log('Error'); });
+  proxy.on('error', (error) => {
+
+  })
 };
 app.use(express.static(path.join(__dirname, "assets")));
 app.use(serverCallback);
@@ -49,6 +60,8 @@ var server = http.createServer(app);
 
 server.listen(port, () => {
   console.log(`Listening on port ${port}`);
+
+  // To check the server status health based on the retry limit based on the config file
   setInterval(async () => {
     for (let retry = 1; retry <= retryLimit; retry++) {
       let targetArray = [];
