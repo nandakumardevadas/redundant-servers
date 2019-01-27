@@ -35,3 +35,5 @@ const serverConfig = {
 
 # Server to view the status:
     1. http://localhost:4700
+
+> ### Server updates status every 3 seconds
