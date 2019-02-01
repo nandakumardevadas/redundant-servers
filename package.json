@@ -17,7 +17,8 @@
     "http-proxy": "^1.17.0",
     "https": "^1.0.0",
     "is-reachable": "^3.0.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "lodash": "4.17.4"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"
